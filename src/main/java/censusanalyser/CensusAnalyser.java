@@ -21,10 +21,7 @@ public class CensusAnalyser {
             Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
             ;
             int namOfEateries = 0;
-            while (censusCSVIterator.hasNext()) {
-                namOfEateries++;
-                IndiaCensusCSV censusData = censusCSVIterator.next();
-            }
+
             Iterable<IndiaCensusCSV> csvIterable = () -> censusCSVIterator;
             int numOfEntries = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
             return namOfEateries;
