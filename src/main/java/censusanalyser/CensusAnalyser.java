@@ -28,9 +28,6 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
-        while(censusCSVIterator.hasNext()){
-            IndiaCensusCSV indiaCensusCSV=censusCSVIterator.next();
-        }
 
     }
 }
