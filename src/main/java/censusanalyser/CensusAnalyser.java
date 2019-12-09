@@ -18,7 +18,7 @@ public class CensusAnalyser {
             Iterator<IndiaCensusCSV> censusCSVIterator = csvBuilder
                                                             .getCSVFileIterator(reader,IndiaCensusCSV.class);
             return this.getCount(censusCSVIterator) ;
-        } catch (IOException e) {
+        } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
@@ -29,7 +29,7 @@ public class CensusAnalyser {
             Iterator<IndiaStateCodeCSV> stateCSVIterator = csvBuilder
                                                            .getCSVFileIterator(reader,IndiaStateCodeCSV.class);
             return this.getCount(stateCSVIterator);
-        } catch (IOException e) {
+        } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
