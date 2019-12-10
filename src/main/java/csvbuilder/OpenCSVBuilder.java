@@ -23,7 +23,7 @@ public class OpenCSVBuilder<E> implements ICSVBuilder {
         CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
         csvToBeanBuilder.withType(csvClass);
         csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-        csvToBeanBuilder.withSeparator(';');
+        csvToBeanBuilder.withSeparator(',');
         CsvToBean<E> csvToBean = csvToBeanBuilder.build();
         return csvToBean;
     }
