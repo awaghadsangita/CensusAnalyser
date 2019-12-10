@@ -15,7 +15,7 @@ public class CensusAnalyserTest {
     private static final String INDIA_STATE_CSV_FILE = "/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCode.csv";
     private static final String INCORRECT_INDIA_CENSUS_CSV_FILE_PATH = "./src/test/resources/IndiaStateCensusData1.csv";
     @Test
-    public void givenIndianCensusCSVFileReturnsCorrectRecords() {
+    public void givenIndianCensusCSVFile_ReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
@@ -38,7 +38,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void giveIndianStateCSV_shouldReturnExactCount() {
+    public void giveIndianStateCSV_ShouldReturnExactCount() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CSV_FILE);
@@ -49,7 +49,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void giveIndianCensusData_WhenSortedOnState_shouldReturnSortedResult() {
+    public void giveIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
          try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
@@ -59,7 +59,7 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {}
     }
     @Test
-    public void givenIndianCensusCSVFile_butIncorrectFileType_ReturnsCorrectRecords() {
+    public void givenIndianCensusCSVFile_ButIncorrectFileType_ThrowsCustomException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INCORRECT_INDIA_CENSUS_CSV_FILE_PATH);
@@ -69,7 +69,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianCensusCSVFile_butIncorrectFile_ReturnsCorrectRecords() {
+    public void givenIndianCensusCSVFile_ButIncorrectFile_ReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INCORRECT_INDIA_CENSUS_CSV_FILE_PATH);
@@ -78,12 +78,20 @@ public class CensusAnalyserTest {
         }
     }
     @Test
-    public void givenIndianCensusCSVFile_butIncorrectDelimiter_ReturnsCorrectRecords() {
+    public void givenIndianCensusCSVFile_ButIncorrectDelimiter_ReturnsCorrectRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
         } catch (CensusAnalyserException e) {
-//            e.printStackTrace();
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER,e.type);
+        }
+    }
+    @Test
+    public void givenIndianCensusCSVFile_ButIncorrectHeaders_ReturnsCorrectRecords() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER,e.type);
         }
     }
