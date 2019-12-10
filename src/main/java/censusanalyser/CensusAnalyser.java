@@ -27,13 +27,18 @@ public class CensusAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaCensusCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IndiaCensusCSV.class);
-            while(csvFileIterator.hasNext()){
+            while (csvFileIterator.hasNext()) {
                 this.censusList.add(new IndiaCensusDAO(csvFileIterator.next()));
             }
             return this.censusList.size();
         } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (RuntimeException e) {
+            if (e.getMessage().compareTo("Error capturing CSV header!") == 0) {
+                throw new CensusAnalyserException("Error capturing CSV header!", CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER);
+            }
+            return 1;
         }
     }
 
@@ -58,7 +63,7 @@ public class CensusAnalyser {
     public String getStateWiseSortedCensusData() throws CensusAnalyserException {
         if (censusList == null || censusList.size() == 0) {
             throw new CensusAnalyserException("no census data",
-                                                CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+                    CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
         Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.state);
         this.sort(censusComparator);
