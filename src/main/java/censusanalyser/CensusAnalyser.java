@@ -7,6 +7,7 @@ import csvbuilder.ICSVBuilder;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -57,18 +58,36 @@ public class CensusAnalyser {
         return namOfEateries;
     }
 
-    public String getStateWiseSortedCensusData() throws CensusAnalyserException {
+    public String getStateWiseSortedCensusData(String field) throws CensusAnalyserException {
         if (censusList == null || censusList.size() == 0) {
             throw new CensusAnalyserException("no census data",
                     CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
         Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.state);
-        this.sort(censusComparator);
+        this.sort(this.getComparator(field));
         String sortedStateCensusJson = new Gson().toJson(censusList);
         return sortedStateCensusJson;
-
     }
-
+    public Comparator<IndiaCensusDAO> getComparator(String field){
+        Comparator<IndiaCensusDAO> censusComparator ;
+        switch (field.toLowerCase()) {
+            case "state":
+                censusComparator= Comparator.comparing(census -> census.state);
+                break;
+            case "population":
+                censusComparator= Comparator.comparing(census -> census.population);
+                break;
+            case "area":
+                censusComparator= Comparator.comparing(census -> census.areaInSqKm);
+                break;
+            case "density":
+                censusComparator= Comparator.comparing(census -> census.densityPerSqKm);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + field.toLowerCase());
+        }
+        return censusComparator;
+    }
     private void sort(Comparator<IndiaCensusDAO> censusComparator) {
         for (int i = 0; i < censusList.size() - 1; i++) {
             for (int j = 0; j < censusList.size() - i - 1; j++) {
