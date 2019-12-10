@@ -1,8 +1,9 @@
 package censusanalyser;
 
 import com.google.gson.Gson;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import csvbuilder.CSVBuilderException;
+import csvbuilder.CSVBuilderFactory;
+import csvbuilder.ICSVBuilder;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -29,7 +30,7 @@ public class CensusAnalyser {
             while(csvFileIterator.hasNext()){
                 this.censusList.add(new IndiaCensusDAO(csvFileIterator.next()));
             }
-            return this.getCount(csvFileIterator);
+            return this.censusList.size();
         } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
