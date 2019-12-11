@@ -21,7 +21,6 @@ public class CensusAnalyserTest {
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             Assert.assertEquals(29, numOfRecords);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     @Test
@@ -150,7 +149,7 @@ public class CensusAnalyserTest {
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             String sortedCensusData = censusAnalyser.getSortedData(FieldName.DENSITY);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals(":Bihar", censusCSV[0].state);
+            Assert.assertEquals("Bihar", censusCSV[0].state);
         } catch (CensusAnalyserException e) {}
     }
     @Test
