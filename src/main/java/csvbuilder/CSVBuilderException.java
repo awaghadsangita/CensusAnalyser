@@ -10,4 +10,8 @@ public class CSVBuilderException extends Exception {
         super(message);
         this.type = ExceptionType.valueOf(name);
     }
+    public CSVBuilderException(String message, CSVBuilderException.ExceptionType type) {
+        super(message);
+        this.type = type;
+    }
 }
