@@ -21,9 +21,9 @@ public class CensusAnalyser {
         this.censusStateMap = new HashMap<>();
         this.comparatorHashMap=new HashMap<>();
         this.comparatorHashMap.put(FieldName.STATE,Comparator.comparing(census -> census.state));
-        this.comparatorHashMap.put(FieldName.POPULATION,Comparator.comparing(census -> census.population));
-        this.comparatorHashMap.put(FieldName.DENSITY,Comparator.comparing(census -> census.densityPerSqKm));
-        this.comparatorHashMap.put(FieldName.AREA,Comparator.comparing(census -> census.areaInSqKm));
+        this.comparatorHashMap.put(FieldName.POPULATION,Comparator.comparing(census -> census.population,Comparator.reverseOrder()));
+        this.comparatorHashMap.put(FieldName.DENSITY,Comparator.comparing(census -> census.densityPerSqKm,Comparator.reverseOrder()));
+        this.comparatorHashMap.put(FieldName.AREA,Comparator.comparing(census -> census.areaInSqKm,Comparator.reverseOrder()));
     }
 
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
@@ -38,6 +38,7 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e) {
+            System.out.println(e);
             throw new CensusAnalyserException("Error capturing CSV header!",
                     CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT);
         }
