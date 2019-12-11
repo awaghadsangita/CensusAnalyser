@@ -125,6 +125,15 @@ public class CensusAnalyserTest {
         }
     }
     @Test
+    public void givenIndianStateCodeCSVFile_ButIncorrectDelimiter_ShouldThrowsCustomException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CSV_FILE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT,e.type);
+        }
+    }
+    @Test
     public void giveIndianCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
