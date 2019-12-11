@@ -8,4 +8,6 @@ public class IndiaStateCodeCSV {
 
     @CsvBindByName(column = "StateCode", required = true)
     public String stateCode;
+
 }
+

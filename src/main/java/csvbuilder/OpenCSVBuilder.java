@@ -2,7 +2,9 @@ package csvbuilder;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.apache.commons.csv.CSVParser;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +20,7 @@ public class OpenCSVBuilder<E> implements ICSVBuilder {
         return this.getCSVBuilder(reader, csvClass).parse();
 
     }
+
 
     private CsvToBean<E> getCSVBuilder(Reader reader, Class csvClass) {
         CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
