@@ -38,8 +38,7 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e) {
-            System.out.println(e);
-            throw new CensusAnalyserException("Error capturing CSV header!",
+             throw new CensusAnalyserException("Error capturing CSV header!",
                     CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT);
         }
     }
