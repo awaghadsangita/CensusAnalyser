@@ -1,7 +1,6 @@
 package censusanalyser;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.$Gson$Preconditions;
 import csvbuilder.CSVBuilderException;
 import csvbuilder.CSVBuilderFactory;
 import csvbuilder.ICSVBuilder;
@@ -63,7 +62,7 @@ public class CensusAnalyser {
         }
     }
 
-    public String getStateWiseSortedCensusData(FieldName field) throws CensusAnalyserException {
+    public String getSortedData(FieldName field) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("no census data",
                     CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
