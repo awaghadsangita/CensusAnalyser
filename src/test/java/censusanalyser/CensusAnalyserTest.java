@@ -40,7 +40,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             int numOfRecords = censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CSV_FILE);
-            Assert.assertEquals(37, numOfRecords);
+            Assert.assertEquals(29, numOfRecords);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,6 @@ public class CensusAnalyserTest {
              Assert.assertEquals(CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT, e.type);
         }
     }
-
     @Test
     public void giveIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
          try {
