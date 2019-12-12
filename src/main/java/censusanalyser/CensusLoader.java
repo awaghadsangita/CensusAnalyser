@@ -14,6 +14,16 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public class CensusLoader {
+    public Map<String,CensusDAO> loadCensusData(CensusAnalyser.Country country, String... csvFilePath) throws CensusAnalyserException {
+        if(country.equals(CensusAnalyser.Country.INDIA)){
+            return this.loadCensusData(IndiaCensusCSV.class,csvFilePath);
+        }else if(country.equals(CensusAnalyser.Country.US)){
+            return this.loadCensusData(USCensusCSV.class,csvFilePath);
+        }else {
+            throw new CensusAnalyserException("incorrect country", CensusAnalyserException.ExceptionType.INCORRECT_COUNTRY);
+        }
+    }
+
     Map<String, CensusDAO> censusStateMap =new HashMap<>();
     public <E>  Map<String, CensusDAO> loadCensusData(Class<E> censusCSVClass,String... csvFilePath) throws CensusAnalyserException {
 
@@ -41,6 +51,7 @@ public class CensusLoader {
                     CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT);
         }
     }
+
     public int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -53,9 +64,6 @@ public class CensusLoader {
         } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
-            throw new CensusAnalyserException("Error capturing CSV header!",
-                    CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT);
         }
     }
 }

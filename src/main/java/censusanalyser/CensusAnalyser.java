@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CensusAnalyser {
-
+    public enum Country {INDIA,US}
     Map<FieldName, Comparator<CensusDAO>> comparatorHashMap = null;
     Map<String, CensusDAO> censusStateMap=null;
 
@@ -17,14 +17,9 @@ public class CensusAnalyser {
         this.comparatorHashMap.put(FieldName.AREA, Comparator.comparing(census -> census.totalArea, Comparator.reverseOrder()));
     }
 
-    public int loadIndiaCensusData(String ... csvFilePath) throws CensusAnalyserException {
-         censusStateMap =new CensusLoader().loadCensusData(IndiaCensusCSV.class,csvFilePath);
+    public int loadIndiaCensusData(Country country, String ... csvFilePath) throws CensusAnalyserException {
+         censusStateMap =new CensusLoader().loadCensusData(country,csvFilePath);
          return censusStateMap.size();
-    }
-
-    public int loadUSCensusData(String... csvFilePath) throws CensusAnalyserException {
-        censusStateMap =new CensusLoader().loadCensusData(USCensusCSV.class,csvFilePath);
-        return censusStateMap.size();
     }
 
     public String getSortedData(FieldName field) throws CensusAnalyserException {
