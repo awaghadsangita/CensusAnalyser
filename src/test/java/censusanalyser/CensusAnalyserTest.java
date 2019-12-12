@@ -14,6 +14,7 @@ public class CensusAnalyserTest {
     private static final String INCORRECT_INDIA_CENSUS_CSV_FILE_TYPE_PATH = "./src/test/resources/IndiaStateCensusData.json";
     private static final String WRONG_STATECODE_CSV_FILE_PATH = "/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCode1.csv";
     private static final String INCORRECT_INDIA_STATECODE_CSV_FILE_TYPE_PATH = "/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCode.json";
+    private static final String US_CENSUS_CSV_FILE_PATH = "/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
     @Test
     public void givenIndianCensusCSVFile_ReturnsCorrectRecords() {
         try {
@@ -42,7 +43,6 @@ public class CensusAnalyserTest {
             int numOfRecords = censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CSV_FILE);
             Assert.assertEquals(29, numOfRecords);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     @Test
@@ -160,5 +160,15 @@ public class CensusAnalyserTest {
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Rajasthan", censusCSV[0].state);
         } catch (CensusAnalyserException e) {}
+    }
+
+    @Test
+    public void givenUsCensusData_ShouldReturnCorrectRecords() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int numOfRecords = censusAnalyser.loadUSCensusData(US_CENSUS_CSV_FILE_PATH);
+            Assert.assertEquals(51,numOfRecords);
+        } catch (CensusAnalyserException e) {
+        }
     }
 }
