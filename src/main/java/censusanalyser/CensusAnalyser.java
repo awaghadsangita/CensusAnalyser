@@ -17,7 +17,7 @@ public class CensusAnalyser {
         this.comparatorHashMap.put(FieldName.AREA, Comparator.comparing(census -> census.totalArea, Comparator.reverseOrder()));
     }
 
-    public int loadIndiaCensusData(Country country, String ... csvFilePath) throws CensusAnalyserException {
+    public int loadCensusData(Country country, String ... csvFilePath) throws CensusAnalyserException {
          censusStateMap =new CensusLoader().loadCensusData(country,csvFilePath);
          return censusStateMap.size();
     }
