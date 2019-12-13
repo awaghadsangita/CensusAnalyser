@@ -21,7 +21,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void giveIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
+    public void giveIndianCensusData_WhenSortedOnState_ShouldReturnStateStartWithLowestAlphbabet() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
             censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH, INDIA_STATE_CSV_FILE);
@@ -33,7 +33,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void giveIndianCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult() {
+    public void giveIndianCensusData_WhenSortedOnPopulation_ShouldReturnStateWithHighestPopulation() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
             censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH, INDIA_STATE_CSV_FILE);
@@ -45,7 +45,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void giveIndianCensusData_WhenSortedOnDensity_ShouldReturnSortedResult() {
+    public void giveIndianCensusData_WhenSortedOnDensity_ShouldReturnStateWithHighestDensity() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
             censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH, INDIA_STATE_CSV_FILE);
@@ -58,7 +58,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void giveIndianCensusData_WhenSortedOnArea_ShouldReturnSortedResult() {
+    public void giveIndianCensusData_WhenSortedOnArea_ShouldReturnStateWithLargestArea() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
             censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH, INDIA_STATE_CSV_FILE);
