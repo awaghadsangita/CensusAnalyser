@@ -21,6 +21,7 @@ public class IndiaCensusAdapterTest {
             Map<String, CensusDAO> indiaCensusDataMap = indiaCensusAdapter.loadCensusData(CensusAnalyser.Country.INDIA,INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CSV_FILE);
             Assert.assertEquals(29, indiaCensusDataMap.size());
         } catch (CensusAnalyserException e) {
+
         }
     }
     @Test
