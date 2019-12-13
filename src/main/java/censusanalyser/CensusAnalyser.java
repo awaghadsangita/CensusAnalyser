@@ -1,7 +1,9 @@
 package censusanalyser;
 
 import com.google.gson.Gson;
+
 import java.util.*;
+
 import static java.util.stream.Collectors.toCollection;
 
 public class CensusAnalyser {
@@ -15,9 +17,13 @@ public class CensusAnalyser {
         this.country = country;
         this.comparatorHashMap = new HashMap<>();
         this.comparatorHashMap.put(FieldName.STATE, Comparator.comparing(census -> census.state));
-        this.comparatorHashMap.put(FieldName.POPULATION, Comparator.comparing(census -> census.populationDensity, Comparator.reverseOrder()));
-        this.comparatorHashMap.put(FieldName.DENSITY, Comparator.comparing(census -> census.densityPerSqKm, Comparator.reverseOrder()));
+        this.comparatorHashMap.put(FieldName.POPULATION, Comparator.comparing(census -> census.population, Comparator.reverseOrder()));
+        this.comparatorHashMap.put(FieldName.DENSITY, Comparator.comparing(census -> census.populationDensity, Comparator.reverseOrder()));
         this.comparatorHashMap.put(FieldName.AREA, Comparator.comparing(census -> census.totalArea, Comparator.reverseOrder()));
+        Comparator<CensusDAO> populationComparator = Comparator.comparing(census -> census.population,Comparator.reverseOrder());
+        Comparator<CensusDAO> densityComparator = Comparator.comparing(census -> census.populationDensity,Comparator.reverseOrder());
+        Comparator<CensusDAO> populationWithDensityComparator = populationComparator.thenComparing(densityComparator);
+        this.comparatorHashMap.put(FieldName.POPULATIONWITHDENSITY, populationWithDensityComparator);
     }
 
     public int loadCensusData(String... csvFilePath) throws CensusAnalyserException {

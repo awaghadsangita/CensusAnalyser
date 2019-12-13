@@ -9,6 +9,8 @@ public class USCensusAdapterTest {
     private String US_CENSUS_CSV_FILE_PATH="/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
     private String WRONG_US_CENSUS_CSV_FILE_PATH="/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData1.csv";
     private String INCORRECT_US_CENSUS_CSV_FILE_TYPE_PATH="/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData1.json";
+    private String US_CENSUS_CSV_FILE_WITH_ICORRECT_DEMITOR_PATH="/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData_IncorrectDemitor.csv";
+    private String US_CENSUS_CSV_FILE_WITH_INCORRECT_HEADERS_PATH="/home/admin1/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData_WithIncorrectHeaders.csv";
 
 
     @Test
@@ -42,7 +44,7 @@ public class USCensusAdapterTest {
     public void givenUSCensusCSVFile_ButIncorrectDelimiter_ShouldThrowsCustomException() {
         try {
             USCensusAdapter usCensusAdapter = new USCensusAdapter();
-            usCensusAdapter.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_FILE_PATH);
+            usCensusAdapter.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_FILE_WITH_ICORRECT_DEMITOR_PATH);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT,e.type);
         }
@@ -51,7 +53,7 @@ public class USCensusAdapterTest {
     public void givenIndianCensusCSVFile_ButIncorrectHeaders_ShouldThrowsCustomException() {
         try {
             USCensusAdapter usCensusAdapter = new USCensusAdapter();
-            usCensusAdapter.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_FILE_PATH);
+            usCensusAdapter.loadCensusData(CensusAnalyser.Country.US,US_CENSUS_CSV_FILE_WITH_INCORRECT_HEADERS_PATH);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.PROBLEM_WITH_HEADER_FORMAT,e.type);
         }
