@@ -116,7 +116,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenUsCensusData_WithSortedOnState_ShouldReturnStateWithLowestPopulationState() {
+    public void givenUsCensusData_WithSortedOnPopulation_ShouldReturnStateWithLowestPopulationState() {
         CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
         try {
             censusAnalyser.loadCensusData(US_CENSUS_CSV_FILE_PATH);
@@ -140,7 +140,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenUsCensusData_WithSortedOnState_ShouldReturnStateWithLowestArea() {
+    public void givenUsCensusData_WithSortedOnArea_ShouldReturnStateWithLowestArea() {
         CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
         try {
             censusAnalyser.loadCensusData(US_CENSUS_CSV_FILE_PATH);
