@@ -1,13 +1,15 @@
 package censusanalyser;
 
 import com.google.gson.Gson;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CensusAnalyser {
-    public enum Country {INDIA,US}
+    public enum Country {INDIA, US}
+
     Map<FieldName, Comparator<CensusDAO>> comparatorHashMap = null;
-    Map<String, CensusDAO> censusStateMap=null;
+    Map<String, CensusDAO> censusStateMap = null;
 
     public CensusAnalyser() {
         this.comparatorHashMap = new HashMap<>();
@@ -17,9 +19,10 @@ public class CensusAnalyser {
         this.comparatorHashMap.put(FieldName.AREA, Comparator.comparing(census -> census.totalArea, Comparator.reverseOrder()));
     }
 
-    public int loadCensusData(Country country, String ... csvFilePath) throws CensusAnalyserException {
-         censusStateMap =new CensusLoader().loadCensusData(country,csvFilePath);
-         return censusStateMap.size();
+    public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
+        CensusAdapter censusAdapter = CensusAdapterFactory.getCensusData(country);
+        censusStateMap = censusAdapter.loadCensusData(country, csvFilePath);
+        return censusStateMap.size();
     }
 
     public String getSortedData(FieldName field) throws CensusAnalyserException {
