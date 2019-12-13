@@ -3,7 +3,6 @@ package censusanalyser;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class CensusAnalyserTest {
 
@@ -104,5 +103,28 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenUsCensusData_WithSortedOnPopulation_ShouldReturnStateWithHighestPopulationState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+        try {
+            censusAnalyser.loadCensusData(US_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getSortedData(FieldName.POPULATION);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("District of Columbia", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+        }
+    }
+
+    @Test
+    public void givenUsCensusData_WithSortedOnState_ShouldReturnStateWithLowestPopulationState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.US);
+        try {
+            censusAnalyser.loadCensusData(US_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getSortedData(FieldName.POPULATION);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Alaska", censusCSV[censusCSV.length - 1].state);
+        } catch (CensusAnalyserException e) {
+        }
+    }
 
 }
